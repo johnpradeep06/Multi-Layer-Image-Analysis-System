@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Coffee } from 'lucide-react';
 import UploadSection from './components/UploadSection';
 import GallerySection from './components/GallerySection';
 
@@ -16,8 +17,8 @@ function App() {
       <header className="border-b border-gray-800 p-6 bg-black/50 backdrop-blur sticky top-0 z-50">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <h1 className="text-2xl font-mono font-bold tracking-tighter text-white">
-            <span className="text-terminal-green mr-2">█▓</span>
-            FORENSIC<span className="text-gray-500">.AI</span>
+            <Coffee className="text-terminal-green mr-2 w-8 h-8" />
+            CHAI<span className="text-gray-500">.AI</span>
           </h1>
           <div className="flex gap-4 text-xs font-mono text-gray-500">
             <span>SYS.STATUS: ONLINE</span>

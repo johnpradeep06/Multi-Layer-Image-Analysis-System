@@ -74,7 +74,7 @@ export default function UploadSection({ onUploadSuccess }) {
     return (
         <div className="w-full max-w-2xl mx-auto p-6 bg-crime-gray rounded-lg border border-gray-700 shadow-xl">
             <h2 className="text-2xl font-bold mb-4 text-center border-b border-gray-700 pb-2">
-                Forensic Image Analysis
+                AI Image Analysis
             </h2>
 
             {/* File Input */}

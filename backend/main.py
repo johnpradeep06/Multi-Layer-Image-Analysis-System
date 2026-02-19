@@ -33,6 +33,9 @@ app.add_middleware(
 # Mount uploads for static access
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
+@app.get("/")
+def health_check():
+    return {"status": "Backend is running"}
 
 @app.on_event("startup")
 def on_startup():

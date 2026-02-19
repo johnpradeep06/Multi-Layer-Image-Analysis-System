@@ -59,39 +59,54 @@ export default function GallerySection({ refreshTrigger }) {
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {images.map((img) => (
-                    <div key={img.id} className="bg-crime-gray border border-gray-800 rounded-lg overflow-hidden hover:border-gray-600 transition-all group">
-                        <div className="relative aspect-video bg-black overflow-hidden">
-                            <img
-                                src={`http://localhost:8000/uploads/${img.filename}`}
-                                alt={img.filename}
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                            />
-                            {/* Overlay info */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                                <p className="text-xs text-gray-300 font-mono line-clamp-2">
-                                    {img.forensic_summary}
-                                </p>
-                            </div>
-                        </div>
-                        <div className="p-4 flex justify-between items-center">
-                            <span className="text-sm font-mono text-gray-400 truncate max-w-[150px]">{img.filename}</span>
-                            <span className={clsx(
-                                "text-xs font-bold px-2 py-1 rounded",
-                                img.final_result === "Real" ? "bg-green-900/30 text-green-400" : "bg-yellow-900/30 text-yellow-400"
-                            )}>
-                                {img.final_result.toUpperCase()}
-                            </span>
+            {/* Loading State */}
+            {loading ? (
+                <div className="flex justify-center items-center h-64">
+                    <div className="relative">
+                        <div className="w-16 h-16 border-4 border-gray-800 border-t-terminal-green rounded-full animate-spin"></div>
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-terminal-green text-xs font-mono">
+                            LOAD
                         </div>
                     </div>
-                ))}
-            </div>
-
-            {!loading && images.length === 0 && (
-                <div className="text-center py-20 text-gray-600">
-                    No images found in this category.
                 </div>
+            ) : (
+                <>
+                    {/* Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {images.map((img) => (
+                            <div key={img.id} className="bg-crime-gray border border-gray-800 rounded-lg overflow-hidden hover:border-gray-600 transition-all group">
+                                <div className="relative aspect-video bg-black overflow-hidden">
+                                    <img
+                                        src={`http://localhost:8000/uploads/${img.filename}`}
+                                        alt={img.filename}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    />
+                                    {/* Overlay info */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                        <p className="text-xs text-gray-300 font-mono line-clamp-2">
+                                            {img.forensic_summary}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="p-4 flex justify-between items-center">
+                                    <span className="text-sm font-mono text-gray-400 truncate max-w-[150px]">{img.filename}</span>
+                                    <span className={clsx(
+                                        "text-xs font-bold px-2 py-1 rounded",
+                                        img.final_result === "Real" ? "bg-green-900/30 text-green-400" : "bg-yellow-900/30 text-yellow-400"
+                                    )}>
+                                        {img.final_result.toUpperCase()}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {images.length === 0 && (
+                        <div className="text-center py-20 text-gray-600">
+                            No images found in this category.
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );
