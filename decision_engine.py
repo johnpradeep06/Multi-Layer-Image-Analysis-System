@@ -103,7 +103,7 @@ Return ONLY valid JSON in this format:
   "media": {{
       "uri": "{os.path.basename(image_path)}"
   }},
-  "forensic_summary": "short technical reasoning explaining the verdict",
+  "forensic_summary": "Write a concise forensic justification in 2-3 sentences. Highlight only the strongest visual indicator of manipulation (e.g., lighting inconsistency, unnatural texture, blending artifacts). Avoid mentioning scores, probabilities, or internal analysis metrics.",
   "Final Result": "AI Generated / AI Edited / Real"
 }}
 
