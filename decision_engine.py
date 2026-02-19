@@ -82,7 +82,7 @@ Instructions:
 - Look for synthetic artifacts, deepfake traces, unnatural lighting, or inconsistencies.
 - If GenAI score is very high (>0.9), image is likely AI generated.
 - If metadata indicates editing but other scores are low, it may be AI edited, not generated.
-- If the GenAI score is low , but both artifacts and metadata score is  high, it may be AI edited, not generated.
+- If the Metadata score is 0.05 straightly conlcude it is Real.
 
 
 Return ONLY valid JSON in this format:
@@ -139,7 +139,7 @@ Do not return anything except JSON.
 
 if __name__ == "__main__":
 
-    test_image = "assests/trial.jpg"
+    test_image = "assests/eren.png"
 
     if os.path.exists(test_image):
 

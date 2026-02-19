@@ -20,47 +20,54 @@ An LLM then acts as a "Forensic Expert," synthesizing these reports to provide a
 -   **ELA Layer**: Performs Error Level Analysis to detect pixel-level manipulations.
 -   **Metadata Layer**: Extracts and analyzes EXIF tags for suspicious software traces (e.g., Photoshop).
 -   **LLM Decision Engine**: OpenAI/OpenRouter integration to interpret technical data and generate a natural language report.
+-   **Full Stack Application**:
+    -   **Backend**: FastAPI server for handling uploads and analysis.
+    -   **Frontend**: React (Vite) application with a modern forensic dashboard.
+    -   **Gallery**: automatic categorization of images into "Real" and "Under Review".
 
 ## Directory Structure
 
 ```
-├── decision_engine.py      # Main entry point and LLM decision logic
-├── layers/                 # Analytic modules
-│   ├── analyse_image.py    # GenAI Detection (Sightengine)
-│   ├── artifacts.py        # Frequency Analysis
-│   ├── ela.py              # Error Level Analysis
-│   └── metadata.py         # Metadata/EXIF Analysis
-├── assests/                # Test images
-├── requirements.txt        # Python dependencies
-└── .env                    # Configuration credentials
+├── backend/                # FastAPI Application
+│   ├── main.py             # API Endpoints
+│   ├── models.py           # Database Models
+│   └── database.py         # DB Connection
+├── frontend/               # React Application (Vite)
+├── decision_engine.py      # Core Analysis Logic
+├── layers/                 # Analytic Modules
+├── assests/                # Test Images
+├── requirements.txt        # Python Dependencies
+└── .env                    # Configuration
 ```
 
-## Installation
+## Installation & Setup
 
-1.  **Clone the repository**:
-    ```bash
-    git clone <repository_url>
-    cd <repository_directory>
-    ```
+### 1. Clone the repository
+```bash
+git clone <repository_url>
+cd <repository_directory>
+```
 
-2.  **Create and activate a virtual environment** (optional but recommended):
-    ```bash
-    python -m venv venv
-    # Windows
-    venv\Scripts\activate
-    # macOS/Linux
-    source venv/bin/activate
-    ```
+### 2. Backend Setup (Termina 1)
 
-3.  **Install dependencies**:
-    ```bash
-    pip install -r requirements.txt
-    ```
+Create a virtual environment and install dependencies:
 
-## Configuration
+```bash
+# Create venv
+python -m venv venv
 
+# Activate venv (Windows)
+venv\Scripts\activate
+# Activate venv (Mac/Linux)
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+**Configuration**:
 1.  Create a `.env` file in the root directory.
-2.  Add your API keys for OpenRouter (LLM) and Sightengine (GenAI detection):
+2.  Add your API keys:
 
 ```env
 OPENROUTER_API_KEY=your_openrouter_api_key
@@ -68,47 +75,38 @@ SIGHTENGINE_API_USER=your_sightengine_api_user
 SIGHTENGINE_API_SECRET=your_sightengine_api_secret
 ```
 
-## Usage
+**Run the Backend**:
+```bash
+python -m uvicorn backend.main:app --reload
+```
+The API will start at `http://localhost:8000`.
 
-To analyze an image, run the `decision_engine.py` script. You can modify the `test_image` variable in the `__main__` block to point to your target image.
+### 3. Frontend Setup (Terminal 2)
+
+Navigate to the frontend directory and install Node.js dependencies:
 
 ```bash
-python decision_engine.py
+cd frontend
+npm install
 ```
 
-### Example Usage in Code
-
-```python
-from decision_engine import analyze_image
-
-# Path to the image you want to analyze
-image_path = "assests/test_image.jpg"
-
-# Run analysis
-result = analyze_image(image_path)
-
-# Print the JSON result
-print(result)
+**Run the Frontend**:
+```bash
+npm run dev
 ```
+The application will be available at `http://localhost:5173`.
 
-## Output Format
+## Usage
 
-The system returns a JSON object containing the analysis results:
+1.  Open the frontend URL (`http://localhost:5173`).
+2.  **Upload an Image**: Drag & drop or select an image.
+3.  **View Analysis**: Watch the forensic analysis steps (Pixels, Metadata, CFA, GenAI).
+4.  **See Verdict**:
+    -   **Real**: Image is added to the Public Gallery.
+    -   **Under Review**: Image had some editing traces (e.g. Photoshop metadata) and is added to the Review Gallery.
+    -   **Blocked**: Image is high-confidence AI genrated.
 
-```json
-{
-  "status": "success",
-  "request": {
-      "id": "generated_id",
-      "timestamp": 123456789,
-      "operations": 4
-  },
-  "type": {
-      "ai_generated": 0.95
-  },
-  "media": {
-      "uri": "test_image.jpg"
-  },
-  "forensic_summary": "The image shows strong indicators of being AI-generated..."
-}
-```
+## API Documentation
+
+-   Swagger UI: `http://localhost:8000/docs`
+-   ReDoc: `http://localhost:8000/redoc`

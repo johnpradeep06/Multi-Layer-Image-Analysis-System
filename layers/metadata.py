@@ -88,5 +88,5 @@ def compute_metadata_score(image_path):
 
 
 if __name__ == "__main__":
-    meta_data_score = compute_metadata_score("../assests/guntur.jpg")
+    meta_data_score = compute_metadata_score("../assests/realtime.jpeg")
     print(meta_data_score)

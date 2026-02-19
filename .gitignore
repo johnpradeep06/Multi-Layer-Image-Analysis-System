@@ -23,3 +23,12 @@ Thumbs.db
 
 # Database
 *.sqlite3
+database.db
+
+# Frontend
+node_modules/
+dist/
+.DS_Store
+
+# Backend Uploads
+uploads/
