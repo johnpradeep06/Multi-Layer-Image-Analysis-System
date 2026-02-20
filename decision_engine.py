@@ -77,15 +77,13 @@ ELA Score: {ela_score}
 Metadata Risk Score: {meta_score}
 
 Instructions:
-- Perform an independent visual inspection of the image.
-- Identify any observable anomalies such as unnatural lighting transitions, blending artifacts, texture inconsistencies, geometric distortions, or synthetic patterns.
-- Correlate your visual findings with the provided risk scores.
-- Treat risk scores as supporting indicators, not absolute rules.
-- A very high GenAI score (>0.9) strongly suggests synthetic generation, but confirm it with visible evidence.
-- Moderate metadata or artifact scores may indicate AI editing rather than full generation.
-- If risk scores and visual evidence conflict, prioritize observable forensic cues.
-- Deliver a final conclusion based on combined reasoning, not a single metric.
-- If the Metadata score is less than or equal to 0.05 straightly conlcude it is Real.
+- Analyze the image visually.
+- Correlate with the risk scores.
+- Look for synthetic artifacts, deepfake traces, unnatural lighting, or inconsistencies.
+- If GenAI score is very high (>0.9), image is likely AI generated.
+- If metadata moderate and artifacts have high scores and GenAI score is low, it may be AI edited, not generated.
+- If the Metadata score is 0.05 straightly conlcude it is Real.
+- Apart from this if something is off in the image you can conclude based on your own analysis to
 
 
 Return ONLY valid JSON in this format:
@@ -142,7 +140,7 @@ Do not return anything except JSON.
 
 if __name__ == "__main__":
 
-    test_image = "assests/eren.png"
+    test_image = "assests/test5.png"
 
     if os.path.exists(test_image):
 
