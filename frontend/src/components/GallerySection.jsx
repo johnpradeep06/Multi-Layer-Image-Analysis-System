@@ -12,7 +12,7 @@ export default function GallerySection({ refreshTrigger }) {
         setLoading(true);
         try {
             const endpoint = tab === 'real' ? '/gallery/real' : '/gallery/review';
-            const response = await axios.get(`http://127.0.0.1:8000${endpoint}`);
+            const response = await axios.get(`https://ai-image-detector-backend-3c7f.onrender.com${endpoint}`);
             setImages(response.data);
         } catch (err) {
             console.error(err);
@@ -77,7 +77,7 @@ export default function GallerySection({ refreshTrigger }) {
                             <div key={img.id} className="bg-crime-gray border border-gray-800 rounded-lg overflow-hidden hover:border-gray-600 transition-all group">
                                 <div className="relative aspect-video bg-black overflow-hidden">
                                     <img
-                                        src={`http://127.0.0.1:8000/uploads/${img.filename}`}
+                                        src={`https://ai-image-detector-backend-3c7f.onrender.com/uploads/${img.filename}`}
                                         alt={img.filename}
                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                     />
