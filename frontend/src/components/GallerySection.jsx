@@ -12,7 +12,8 @@ export default function GallerySection({ refreshTrigger }) {
         setLoading(true);
         try {
             const endpoint = tab === 'real' ? '/gallery/real' : '/gallery/review';
-            const response = await axios.get(`http://127.0.0.1:8000${endpoint}`);
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+            const response = await axios.get(`${apiUrl}${endpoint}`);
             setImages(response.data);
         } catch (err) {
             console.error(err);
@@ -73,32 +74,35 @@ export default function GallerySection({ refreshTrigger }) {
                 <>
                     {/* Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {images.map((img) => (
-                            <div key={img.id} className="bg-crime-gray border border-gray-800 rounded-lg overflow-hidden hover:border-gray-600 transition-all group">
-                                <div className="relative aspect-video bg-black overflow-hidden">
-                                    <img
-                                        src={`http://127.0.0.1:8000/uploads/${img.filename}`}
-                                        alt={img.filename}
-                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    />
-                                    {/* Overlay info */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
-                                        <p className="text-xs text-gray-300 font-mono line-clamp-2">
-                                            {img.forensic_summary}
-                                        </p>
+                        {images.map((img) => {
+                            const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+                            return (
+                                <div key={img.id} className="bg-crime-gray border border-gray-800 rounded-lg overflow-hidden hover:border-gray-600 transition-all group">
+                                    <div className="relative aspect-video bg-black overflow-hidden">
+                                        <img
+                                            src={`${apiUrl}/uploads/${img.filename}`}
+                                            alt={img.filename}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                        />
+                                        {/* Overlay info */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                                            <p className="text-xs text-gray-300 font-mono line-clamp-2">
+                                                {img.forensic_summary}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="p-4 flex justify-between items-center">
+                                        <span className="text-sm font-mono text-gray-400 truncate max-w-[150px]">{img.filename}</span>
+                                        <span className={clsx(
+                                            "text-xs font-bold px-2 py-1 rounded",
+                                            img.final_result === "Real" ? "bg-green-900/30 text-green-400" : "bg-yellow-900/30 text-yellow-400"
+                                        )}>
+                                            {img.final_result.toUpperCase()}
+                                        </span>
                                     </div>
                                 </div>
-                                <div className="p-4 flex justify-between items-center">
-                                    <span className="text-sm font-mono text-gray-400 truncate max-w-[150px]">{img.filename}</span>
-                                    <span className={clsx(
-                                        "text-xs font-bold px-2 py-1 rounded",
-                                        img.final_result === "Real" ? "bg-green-900/30 text-green-400" : "bg-yellow-900/30 text-yellow-400"
-                                    )}>
-                                        {img.final_result.toUpperCase()}
-                                    </span>
-                                </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
 
                     {images.length === 0 && (

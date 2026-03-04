@@ -11,7 +11,7 @@ from sqlmodel import Session, select
 # Add parent directory to path to import decision_engine
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from decision_engine import analyze_image
+from backend.decision_engine import analyze_image
 from backend.database import create_db_and_tables, get_session
 from backend.models import AnalysisResult
 
