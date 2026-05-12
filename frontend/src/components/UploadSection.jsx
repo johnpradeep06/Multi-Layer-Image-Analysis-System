@@ -52,7 +52,7 @@ export default function UploadSection({ onUploadSuccess }) {
         try {
             // Simulate at least a few seconds of "analysis" for the UX
             const minTime = new Promise(resolve => setTimeout(resolve, 3000));
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+            const apiUrl = import.meta.env.VITE_API_URL || 'https://multi-layer-image-analysis-system-production-d7e0.up.railway.app';
             const request = axios.post(`${apiUrl}/analyze`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });

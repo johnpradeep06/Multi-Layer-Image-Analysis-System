@@ -12,7 +12,7 @@ export default function GallerySection({ refreshTrigger }) {
         setLoading(true);
         try {
             const endpoint = tab === 'real' ? '/gallery/real' : '/gallery/review';
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+            const apiUrl = import.meta.env.VITE_API_URL || 'https://multi-layer-image-analysis-system-production-d7e0.up.railway.app';
             const response = await axios.get(`${apiUrl}${endpoint}`);
             setImages(response.data);
         } catch (err) {
@@ -75,7 +75,7 @@ export default function GallerySection({ refreshTrigger }) {
                     {/* Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {images.map((img) => {
-                            const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+                            const apiUrl = import.meta.env.VITE_API_URL || 'https://multi-layer-image-analysis-system-production-d7e0.up.railway.app';
                             return (
                                 <div key={img.id} className="bg-crime-gray border border-gray-800 rounded-lg overflow-hidden hover:border-gray-600 transition-all group">
                                     <div className="relative aspect-video bg-black overflow-hidden">
