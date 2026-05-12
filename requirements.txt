@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlmodel
+python-multipart
+openai
+python-dotenv
+requests
+Pillow
+numpy
+opencv-python-headless 
+torch
